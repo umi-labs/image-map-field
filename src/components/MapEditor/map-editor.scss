@@ -1,0 +1,561 @@
+:root {
+  /* Dark mode variables (default) */
+  --map-editor-bg-color: rgb(74, 74, 74);
+  --map-editor-bg-color-hover: rgb(235, 235, 235);
+  --map-editor-bg-text-color: rgb(235, 235, 235);
+  --map-editor-bg-color-disabled: rgb(100, 100, 100);
+  --map-editor-popover-bg-color: rgb(20, 20, 20);
+  --map-editor-success-color: rgb(34, 197, 94);
+  --map-editor-error-color: rgb(239, 68, 68);
+  --map-editor-loading-color: rgb(59, 130, 246);
+}
+
+/* Light mode overrides */
+[data-theme='light'] {
+  --map-editor-bg-color: rgb(235, 235, 235);
+  --map-editor-bg-color-hover: rgb(74, 74, 74);
+  --map-editor-bg-text-color: rgb(74, 74, 74);
+  --map-editor-bg-color-disabled: rgb(200, 200, 200);
+  --map-editor-popover-bg-color: rgb(245, 245, 245);
+  --map-editor-success-color: rgb(34, 197, 94);
+  --map-editor-error-color: rgb(239, 68, 68);
+  --map-editor-loading-color: rgb(59, 130, 246);
+}
+
+/* Alternative selectors for Payload's theme system */
+.payload-admin {
+  --map-editor-bg-color: rgb(235, 235, 235);
+  --map-editor-bg-color-hover: rgb(74, 74, 74);
+  --map-editor-bg-text-color: rgb(74, 74, 74);
+  --map-editor-bg-color-disabled: rgb(200, 200, 200);
+  --map-editor-popover-bg-color: rgb(245, 245, 245);
+  --map-editor-success-color: rgb(34, 197, 94);
+  --map-editor-error-color: rgb(239, 68, 68);
+  --map-editor-loading-color: rgb(59, 130, 246);
+}
+
+/* Check if parent has light theme class */
+.light {
+  --map-editor-bg-color: rgb(235, 235, 235);
+  --map-editor-bg-color-hover: rgb(74, 74, 74);
+  --map-editor-bg-text-color: rgb(74, 74, 74);
+  --map-editor-bg-color-disabled: rgb(200, 200, 200);
+  --map-editor-popover-bg-color: rgb(245, 245, 245);
+  --map-editor-success-color: rgb(34, 197, 94);
+  --map-editor-error-color: rgb(239, 68, 68);
+  --map-editor-loading-color: rgb(59, 130, 246);
+}
+
+.map-editor {
+  position: relative;
+
+  button {
+    &.btn {
+      background-color: var(--map-editor-bg-color);
+      color: var(--map-editor-bg-text-color);
+      border: 1px solid var(--map-editor-bg-color);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    &:disabled,
+    &[disabled],
+    &[aria-disabled='true'],
+    &.btn:disabled,
+    &.btn[disabled] {
+      cursor: not-allowed;
+      background-color: var(--map-editor-bg-color-disabled);
+      color: var(--map-editor-bg-text-color);
+      opacity: 0.6;
+
+      &:hover {
+        background-color: var(--map-editor-bg-color-disabled);
+        color: var(--map-editor-bg-text-color);
+      }
+    }
+
+    &:hover:not(:disabled) {
+      cursor: pointer;
+      background-color: var(--map-editor-bg-color-hover);
+      color: var(--map-editor-bg-color);
+      border-color: var(--map-editor-bg-color-hover);
+    }
+  }
+
+  &__save-button {
+    &--loading {
+      background-color: var(--map-editor-loading-color) !important;
+      color: white !important;
+      border-color: var(--map-editor-loading-color) !important;
+    }
+
+    &--success {
+      background-color: var(--map-editor-success-color) !important;
+      color: white !important;
+      border-color: var(--map-editor-success-color) !important;
+    }
+
+    &--error {
+      background-color: var(--map-editor-error-color) !important;
+      color: white !important;
+      border-color: var(--map-editor-error-color) !important;
+    }
+  }
+
+  &__status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    animation: fadeIn 0.3s ease-in-out;
+
+    &--success {
+      background-color: rgba(34, 197, 94, 0.1);
+      color: var(--map-editor-success-color);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    &--error {
+      background-color: rgba(239, 68, 68, 0.1);
+      color: var(--map-editor-error-color);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+  }
+
+  &__icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+
+    &--spinning {
+      animation: spin 1s linear infinite;
+    }
+  }
+
+  &__image-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    z-index: 0;
+
+    img {
+      cursor: crosshair;
+      object-fit: cover;
+      aspect-ratio: 16 / 9;
+      width: 100%;
+    }
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    width: 100%;
+
+    &-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+
+      button {
+        margin-block: 10px;
+      }
+    }
+
+    &-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+  }
+
+  &__coordinates {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--map-editor-bg-color);
+    padding: 0.25rem 0.5rem;
+    margin-top: 0.25rem;
+    margin-right: 0.25rem;
+    border-radius: 5px;
+    color: var(--map-editor-text-color);
+  }
+
+  &__waypoints {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  &__waypoint {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--map-editor-bg-color);
+    color: var(--map-editor-text-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  &__remove {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background: var(--map-editor-bg-color);
+    color: var(--map-editor-text-color);
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: var(--map-editor-bg-color-hover);
+    }
+  }
+
+  &__waypoint-dot {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: #fff;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: background 0.2s;
+    cursor: pointer;
+    padding: 0;
+
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      color: #222;
+      stroke: #222;
+      stroke-width: 2px;
+      transition:
+        color 0.2s,
+        stroke 0.2s;
+      background: none;
+      display: block;
+    }
+
+    &:hover,
+    &:focus-visible {
+      background: #fe7a05;
+
+      svg {
+        color: #fff;
+        stroke: #fff;
+      }
+    }
+  }
+
+  &__popover {
+    &-content {
+      border-radius: 4px;
+      padding: 1rem;
+      width: fit-content;
+      background-color: var(--map-editor-popover-bg-color);
+      color: var(--map-editor-text-color);
+      box-shadow:
+        hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+        hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+      animation-duration: 400ms;
+      animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+      z-index: 1000;
+
+      &:focus {
+        box-shadow:
+          hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+          hsl(206 22% 7% / 20%) 0px 10px 20px -15px,
+          0 0 0 2px black;
+      }
+
+      &[data-state='open'][data-side='top'] {
+        animation-name: slideDownAndFade;
+      }
+
+      &[data-state='open'][data-side='right'] {
+        animation-name: slideLeftAndFade;
+      }
+
+      &[data-state='open'][data-side='bottom'] {
+        animation-name: slideUpAndFade;
+      }
+
+      &[data-state='open'][data-side='left'] {
+        animation-name: slideRightAndFade;
+      }
+
+      &-title {
+        margin: 0;
+        font-size: 15px;
+        line-height: 19px;
+        font-weight: 500;
+      }
+
+      &-fieldset {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+      }
+
+      &-label {
+        font-size: 13px;
+        color: black;
+        width: 75px;
+      }
+
+      &-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+
+    &-input {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      border-radius: 4px;
+      padding: 0.25rem 0.5rem;
+      font-size: 13px;
+      line-height: 1;
+      background-color: var(--map-editor-bg-color);
+      color: var(--map-editor-text-color);
+      box-shadow: 0 0 0 1px var(--map-editor-text-color);
+      border: 1px solid var(--map-editor-text-color);
+      height: 25px;
+
+      &:focus {
+        box-shadow: 0 0 0 2px var(--map-editor-text-color);
+      }
+    }
+
+    &-close {
+      font-family: inherit;
+      border-radius: 100%;
+      height: 25px;
+      width: 25px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--map-editor-text-color);
+      position: absolute;
+      top: 5px;
+      right: 5px;
+
+      &:hover {
+        background-color: var(--map-editor-bg-color-hover);
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    &-arrow {
+      fill: var(--map-editor-bg-color);
+    }
+
+    &-button.btn {
+      margin-block: 0px;
+    }
+  }
+
+  &__banner {
+    margin-bottom: 1rem;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  &__context-menu {
+    min-width: 140px;
+    background: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+    padding: 0.25rem 0;
+    z-index: 10;
+    border: 1px solid #e5e7eb;
+    font-size: 1rem;
+    color: #222;
+    z-index: 9999 !important;
+
+    .map-editor__context-menu-item {
+      padding: 0.5rem 1rem;
+      background: none;
+      border: none;
+      outline: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      border-radius: 0.375rem;
+      transition:
+        background 0.15s,
+        color 0.15s;
+      color: #222;
+      font-size: 1rem;
+      font-weight: 500;
+      &:hover,
+      &[data-highlighted] {
+        background: #f3f4f6;
+        color: #fe7a05;
+      }
+      &.map-editor__context-menu-item--delete {
+        color: #fe7a05;
+        &:hover,
+        &[data-highlighted] {
+          background: #fff3e6;
+          color: #fe7a05;
+        }
+      }
+    }
+  }
+
+  &__tooltip {
+    background: #23272f;
+    color: #fff;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    z-index: 20;
+    border: 1px solid #23272f;
+    text-align: center;
+    .map-editor__tooltip-arrow {
+      fill: #23272f;
+    }
+  }
+}
+
+@keyframes slideUpAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideRightAndFade {
+  from {
+    opacity: 0;
+    transform: translateX(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideDownAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideLeftAndFade {
+  from {
+    opacity: 0;
+    transform: translateX(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+[data-theme='dark'] .map-editor__context-menu,
+.payload-admin[data-theme='dark'] .map-editor__context-menu,
+.dark .map-editor__context-menu {
+  background: #23272f;
+  color: #fff;
+  border: 1px solid #333;
+  .map-editor__context-menu-item {
+    color: #fff;
+    &:hover,
+    &[data-highlighted] {
+      background: #2d323c;
+      color: #fe7a05;
+    }
+    &.map-editor__context-menu-item--delete {
+      color: #fe7a05;
+      &:hover,
+      &[data-highlighted] {
+        background: #3a2a1a;
+        color: #fe7a05;
+      }
+    }
+  }
+}
+
+[data-theme='light'] .map-editor__tooltip,
+.payload-admin[data-theme='light'] .map-editor__tooltip,
+.light .map-editor__tooltip {
+  background: #222;
+  color: #fff;
+  border: 1px solid #222;
+  .map-editor__tooltip-arrow {
+    fill: #222;
+  }
+}
+
+[data-theme='dark'] .map-editor__tooltip,
+.payload-admin[data-theme='dark'] .map-editor__tooltip,
+.dark .map-editor__tooltip {
+  background: #fff;
+  color: #23272f;
+  border: 1px solid #fff;
+  .map-editor__tooltip-arrow {
+    fill: #fff;
+  }
+}

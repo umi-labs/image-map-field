@@ -1,0 +1,128 @@
+.waypoint-sheet__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
+.waypoint-sheet__dialog {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 400px;
+  max-width: 100vw;
+  background: #fff;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.waypoint-sheet__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.waypoint-sheet__close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.waypoint-sheet__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.waypoint-sheet__form label {
+  font-weight: 500;
+  margin-bottom: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .help-text {
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 1.2;
+    color: #666;
+  }
+
+  input:focus:invalid {
+    outline: 2px solid red;
+  }
+
+  input:focus:valid {
+    outline: 2px solid green;
+  }
+
+  input + span {
+    padding: 0 0.3rem;
+  }
+
+  input:invalid + span::after {
+    content: '✖' / 'Content is not valid';
+    color: red;
+  }
+
+  input:valid + span::after {
+    content: '✓' / 'Content is valid';
+    color: green;
+  }
+}
+
+.waypoint-sheet__form input,
+.waypoint-sheet__form textarea,
+.waypoint-sheet__form select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #c8c8c8;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.waypoint-sheet__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+
+  .btn {
+    margin-block: 0px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    padding: 0.25rem 2rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+
+    &--primary {
+      background-color: #fe7a05;
+      color: #fff;
+      border: 1px solid #fe7a05;
+
+      &:hover {
+        background-color: #fff;
+        color: #fe7a05;
+      }
+    }
+
+    &--secondary {
+      background-color: #fff;
+      color: #000;
+      border: 1px solid #000;
+
+      &:hover {
+        background-color: #fe7a05;
+        color: #fff;
+        border: 1px solid #fe7a05;
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "extends": "../tsconfig.json",
+  "exclude": [],
+  "include": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.mjs",
+    "**/*.cjs",
+    "**/*.ts",
+    "**/*.tsx",
+    "../src/**/*.ts",
+    "../src/**/*.tsx",
+    "next.config.mjs",
+    ".next/types/**/*.ts"
+  ],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@payload-config": ["./payload.config.ts"],
+      "@foundrykit/image-map-field": ["../src/index.ts"],
+      "@foundrykit/image-map-field/client": ["../src/exports/client.ts"],
+      "@foundrykit/image-map-field/rsc": ["../src/exports/rsc.ts"]
+    },
+    "noEmit": true,
+    "emitDeclarationOnly": false
+  }
+}
